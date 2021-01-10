@@ -31,5 +31,19 @@ class ApiService {
     }
 
 
+    async fetchRemoveAuthors(id) {
+        let configObj = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }
+
+        await fetch(this.BASE_URL + `/authors/${id}`, configObj)
+    }
+
+
+
 
 }
