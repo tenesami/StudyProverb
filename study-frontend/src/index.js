@@ -86,6 +86,46 @@ async function createAuthor(e) {
 }
 
 
+function displayCreateProverbForm() {
+    let formProDiv = document.getElementById('new-proverb-form')
+    let html = `
+    <form>
+        <label for="topic">Topic:</label>
+        <input type="text" id="topics"></br></br>
+        <label for="content">Content:</label>
+        <textarea type="text" id="contents"></textarea></br></br>
+        <input type="submit">
+    </form>
+    `
+    formProDiv.innerHTML = html
+    document.querySelector('form').addEventListener("submit", createProverb)
+}
+
+
+async function createProverb(e) {
+    e.preventDefault()
+    let author = document.getElementById('create-proverb')
+    let listProverb = document.querySelector('ul')
+
+    //console.log(e)
+    let proverb = {
+        topic: e.target.querySelector("#topics").value,
+        content: e.target.querySelector("#contents").value,
+        author_id: author.dataset.id
+    }
+
+    let data = await apiService.fetchCreateProverb(proverb)
+
+    let newProverb = new Proverb(data)
+    listProverb.innerHTML += newProverb.renderProverb()
+
+    clearProForm()
+}
+
+function clearProForm() {
+    let formProDiv = document.getElementById('new-proverb-form')
+    formProDiv.innerHTML = ""
+}
 
 async function removeAuthor(e) {
     //let id = e.target.dataset.id.author_id
