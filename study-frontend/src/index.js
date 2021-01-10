@@ -10,7 +10,7 @@ let init = () => {
 function bindEventListiners() {
     document.getElementById("author-form").addEventListener("click", displayCreateForm)
     document.getElementById("authors").addEventListener("click", renderAuthors)
-
+    document.getElementById("proverb-form").addEventListener("click", displayCreateProverbForm)
 }
 
 async function renderAuthors() {
@@ -25,6 +25,30 @@ async function renderAuthors() {
     })
     attachClickAuthorLinks()
 }
+
+
+function attachClickAuthorLinks() {
+    const authors = document.querySelectorAll("li a")
+    authors.forEach(author => {
+        author.addEventListener("click", displayAuthor)
+    })
+}
+
+
+async function displayAuthor(e) {
+    //console.log(e.target)
+    let id = e.target.dataset.id
+
+    const data = await apiService.fetchAuthor(id)
+    const author = new Author(data)
+
+    main.innerHTML = author.renderAuthor()
+
+    document.getElementById('create-proverb').addEventListener('click', displayCreateProverbForm)
+
+    document.getElementById('delete-author').addEventListener('click', removeAuthor)
+}
+
 
 function displayCreateForm() {
     let formDiv = document.getElementById('new-author-form')
@@ -62,26 +86,15 @@ async function createAuthor(e) {
 }
 
 
-function attachClickAuthorLinks() {
-    const authors = document.querySelectorAll("li a")
-    authors.forEach(author => {
-        author.addEventListener("click", displayAuthor)
-    })
+
+async function removeAuthor(e) {
+    //let id = e.target.dataset.id.author_id
+    let authorId = e.target.dataset.id
+
+    await apiService.fetchRemoveAuthors(authorId)
+        .then(data => {
+            renderAuthors()
+        })
 }
-
-async function displayAuthor(e) {
-    //console.log(e.target)
-    let id = e.target.dataset.id
-
-    const data = await apiService.fetchAuthor(id)
-    const author = new Author(data)
-
-    main.innerHTML = author.renderAuthor()
-
-    document.getElementById('create-proverb').addEventListener('click', displayCreateProverbForm)
-
-    document.getElementById('delete-author').addEventListener('click', removeAuthor)
-}
-
 
 init()
