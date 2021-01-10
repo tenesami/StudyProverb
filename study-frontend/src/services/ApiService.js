@@ -15,4 +15,21 @@ class ApiService {
         return data
     }
 
+
+    async fetchCreateAuthor(authorData) {
+        let configObj = {
+            method: 'POST',
+            body: JSON.stringify(authorData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }
+        let res = await fetch(this.BASE_URL + `/authors`, configObj)
+        let data = await res.json()
+        return data
+    }
+
+
+
 }
