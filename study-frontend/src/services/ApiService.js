@@ -45,5 +45,18 @@ class ApiService {
 
 
 
+    async fetchProverbs() {
+        let res = await fetch(this.BASE_URL + `/proverbs`)
+        let data = await res.json()
+        return data
+    }
+
+    async fetchProverb(id) {
+        let res = await fetch(this.BASE_URL + `/proverbs/${id}`)
+        let data = await res.json()
+        return data
+    }
+
+
 
 }
