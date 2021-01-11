@@ -58,5 +58,19 @@ class ApiService {
     }
 
 
+    async fetchCreateProverb(proverbData) {
+        let configObj = {
+            method: 'POST',
+            body: JSON.stringify(proverbData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+        }
+        let res = await fetch(this.BASE_URL + `/proverbs`, configObj)
+        let data = await res.json()
+        return data
+    }
+
 
 }
