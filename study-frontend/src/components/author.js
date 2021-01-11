@@ -5,9 +5,44 @@ class Author {
         this.proverbs = data.proverbs
     }
 
+    render() {
+        return `
+        <li>
+        <a href="#" data-id="${this.id}">
+        ${this.name}
+        </a>
+        </li>    
+        `
+    }
+
+    renderAuthor() {
+        let autorProverbs = this.proverbs.map(proverb => {
+            return `  
+        <h4>${proverb.topic}</h4>
+        ${proverb.content}  
+            </br>
+            <hr>
+        `
+        }).join('')
+
+        return `
+          <h2>  ${this.name} </h2>
+           <hr><hr>
+           <ul>
+            ${autorProverbs}
+            </ul>
+            </br> 
+            </br> 
+            <button id="delete-author" data-id="${this.id}"> Delete Author </button>
+            <br>
+            <br>
+          <button id="create-proverb" data-id="${this.id}"> Create New Proverb </button>   
+        `
+    }
+
 
 }
 
 
-//<button id="delete-author" data-id="${this.id}"> Delete </button>
+//<button id="delete-author" data-id="${this.id}"> Delete Proverb </button>
 //afteer return the proverbs
