@@ -6,4 +6,14 @@ class Proverb {
         this.author_id = data.author.id;
     }
 
+    renderProverb() {
+        return `   
+        <h2>${this.topic}</h2>
+        ${this.content}
+            <hr>
+            </br> 
+
+        `
+    }
+
 }
