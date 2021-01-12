@@ -1,3 +1,3 @@
 class Author < ApplicationRecord
-    has_many :proverbs
+    has_many :proverbs, dependent: :destroy
 end
