@@ -4,14 +4,15 @@ class Author {
         this.name = data.name
         this.proverbs = data.proverbs
     }
-
+   
     render() {
         return `
         <li>
         <a href="#" data-id="${this.id}">
         ${this.name}
         </a>
-        </li>    
+        </li> 
+           
         `
     }
 
@@ -21,6 +22,8 @@ class Author {
         <h4>${proverb.topic}</h4>
         ${proverb.content}  
             </br>
+             </br>
+        
             <hr>
         `
         }).join('')
@@ -43,6 +46,9 @@ class Author {
 
 }
 
+//<button class="delete-proverb" data-id="${this.id}"> Delete Proverb </button>
+
+//<button class="delete-proverb" data-id="${this.id}" onclick="removeProverb()""> Delete Proverb </button>
 
 //<button id="delete-author" data-id="${this.id}"> Delete Proverb </button>
 //afteer return the proverbs

@@ -12,7 +12,6 @@ class Proverb {
         ${this.content}
             <hr>
             </br> 
-
         `
     }
 

@@ -6,6 +6,12 @@ class ApiService {
     async fetchAuthors() {
         let res = await fetch(this.BASE_URL + '/authors')
         let data = await res.json()
+
+        data.sort(function (a, b) {
+            if (a.name < b.name) {
+                return - 1;
+            }
+        })
         return data
     }
 
@@ -31,7 +37,7 @@ class ApiService {
     }
 
 
-    async fetchRemoveAuthors(id) {
+    async fetchRemoveAuthor(id) {
         let configObj = {
             method: 'DELETE',
             headers: {
@@ -39,7 +45,7 @@ class ApiService {
                 'Accept': 'application/json'
             },
         }
-
+        
         await fetch(this.BASE_URL + `/authors/${id}`, configObj)
     }
 
@@ -71,6 +77,5 @@ class ApiService {
         let data = await res.json()
         return data
     }
-
 
 }

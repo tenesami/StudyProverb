@@ -3,11 +3,11 @@ const apiService = new ApiService()
 let main = document.getElementById('main')
 
 let init = () => {
-    bindEventListiners()
+    bindEventListeners()
     renderAuthors()
 }
 
-function bindEventListiners() {
+function bindEventListeners() {
     document.getElementById("author-form").addEventListener("click", displayCreateForm)
     document.getElementById("authors").addEventListener("click", renderAuthors)
     document.getElementById("proverb-form").addEventListener("click", displayCreateProverbForm)
@@ -16,15 +16,17 @@ function bindEventListiners() {
 async function renderAuthors() {
     let authors = await apiService.fetchAuthors()
     main.innerHTML = ""
-    authors.map(author => {
+    authors.forEach(author => {
         //instanciate new object 
         let newAuthor = new Author(author)
 
-        //add to the page using the instance method 
+        //add to the page using the instance method
         main.innerHTML += newAuthor.render()
     })
     attachClickAuthorLinks()
 }
+
+
 
 
 function attachClickAuthorLinks() {
@@ -39,6 +41,7 @@ async function displayAuthor(e) {
     //console.log(e.target)
     let id = e.target.dataset.id
 
+
     const data = await apiService.fetchAuthor(id)
     const author = new Author(data)
 
@@ -47,6 +50,7 @@ async function displayAuthor(e) {
     document.getElementById('create-proverb').addEventListener('click', displayCreateProverbForm)
 
     document.getElementById('delete-author').addEventListener('click', removeAuthor)
+
 }
 
 
@@ -104,6 +108,7 @@ function displayCreateProverbForm() {
 
 async function createProverb(e) {
     e.preventDefault()
+
     let author = document.getElementById('create-proverb')
     let listProverb = document.querySelector('ul')
 
@@ -128,13 +133,15 @@ function clearProForm() {
 }
 
 async function removeAuthor(e) {
-    //let id = e.target.dataset.id.author_id
     let authorId = e.target.dataset.id
+        //console.log(id)
 
-    await apiService.fetchRemoveAuthors(authorId)
+    await apiService.fetchRemoveAuthor(authorId)
         .then(data => {
             renderAuthors()
         })
+
+    
 }
 
 init()
